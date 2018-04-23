@@ -12,7 +12,8 @@ def generate_promo_code(count):
     promoCodeFile = open('promo.txt', 'w')
 
     for i in range(count):
-        promoCode.append(uuid.uuid4())
+        code = str(uuid.uuid4()).replace('-', '').upper()
+        promoCode.append(code)
     for eachCode in promoCode:
         promoCodeFile.write(str(eachCode) + '\n')
     print('Successfully generated ' + str(count) + ' Promo Codes')

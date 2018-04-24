@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """ 
 第 0001 题： 
 做为 Apple Store App 独立开发者，你要搞限时促销，为你的应用生成激活码（或者优惠券）

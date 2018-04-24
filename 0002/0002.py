@@ -23,7 +23,7 @@ def upload_to_sql(promoCode):
     try:
         dbHost = 'localhost'
         dbUser = 'root'
-        dbPwd = 'Genius98!'
+        dbPwd = '******'
         promoCodeDB = pymysql.connect(
             host=dbHost, user=dbUser, password=dbPwd, db='mysql')
         dbCursor = promoCodeDB.cursor()

@@ -8,6 +8,10 @@
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import string
+import os
+import errno
+
+target_dir = 'captcha'
 
 
 def random_letter():
@@ -22,34 +26,48 @@ def random_color():
     return color
 
 
-def generate_captcha():
-    # Generate canvas for captcha
-    canvas_width = 240
-    canvas_height = 60
-    canvas = Image.new('RGB', (canvas_width, canvas_height), '#fff')
+def generate_captcha(num):
+    # If to generate more than one captcha, then put in sub-dir: captcha/*.jpg
+    # Else put in same dir, named captcha.jpg
+    if num > 1:
+        # Check for target directory
+        try:
+            os.makedirs(target_dir)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
 
-    font = ImageFont.truetype('Arial.ttf', 45)
-    draw = ImageDraw.Draw(canvas)
+    for img_num in range(num):
+        # Generate canvas for captcha
+        canvas_width = 240
+        canvas_height = 60
+        canvas = Image.new('RGB', (canvas_width, canvas_height), '#fff')
 
-    # Generate random 4 digit captcha with random color
-    for i in range(4):
-        text_pox = 60 * i + random.randint(5, 15)
-        text_poy = random.randint(2, 10)
-        draw.text((text_pox, text_poy), random_letter(),
-                  fill=random_color(), font=font)
+        font = ImageFont.truetype('Arial.ttf', 45)
+        draw = ImageDraw.Draw(canvas)
 
-    # Generate noise in canvas background
-    for _ in range(random.randint(1500, 3000)):
-        draw.point((random.randint(0, canvas_width),
-                    random.randint(0, canvas_height)), fill=random_color())
+        # Generate random 4 digit captcha with random color
+        for i in range(4):
+            text_pox = 60 * i + random.randint(5, 15)
+            text_poy = random.randint(2, 10)
+            draw.text((text_pox, text_poy), random_letter(),
+                      fill=random_color(), font=font)
 
-    # Blur the text
-    canvas = canvas.filter(ImageFilter.BLUR)
-    canvas.save('captcha.jpg', 'jpeg')
+        # Generate noise in canvas background
+        for _ in range(random.randint(1500, 3000)):
+            draw.point((random.randint(0, canvas_width),
+                        random.randint(0, canvas_height)), fill=random_color())
+
+        # Blur the text
+        canvas = canvas.filter(ImageFilter.BLUR)
+        if num > 1:
+            canvas.save(target_dir + '/' + str(img_num) + '.jpg', 'jpeg')
+        else:
+            canvas.save(target_dir + '.jpg', 'jpeg')
 
 
 def main():
-    generate_captcha()
+    generate_captcha(1)
 
 
 if __name__ == '__main__':

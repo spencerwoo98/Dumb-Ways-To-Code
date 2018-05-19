@@ -13,8 +13,8 @@ import glob
 origin_dir = 'original'
 target_dir = 'result'
 # threshold: iPhone 5 maximum resolution
-width_limit = 1136
-height_limit = 640
+width_limit = 900
+height_limit = 900
 
 
 def compress_image(image_dir, result_dir, target_width, target_height):

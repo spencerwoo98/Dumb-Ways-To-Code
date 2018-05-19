@@ -9,12 +9,12 @@
 import re
 import glob
 
-target_dir = '/Users/spencerwoo/Documents/Code/C++File'
+target_dir = '/Users/spencerwoo/AndroidProjects/CatInTheBox/app/src'
 
 
 def count(dir):
     print('---> Opening directory', target_dir)
-    files = glob.glob('{}/**/*.c*'.format(dir), recursive=True)
+    files = glob.glob('{}/**/*.*'.format(dir), recursive=True)
     lines, comments, spaces = (0, 0, 0)
 
     for each_file in files:

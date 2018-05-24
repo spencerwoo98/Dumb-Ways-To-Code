@@ -9,12 +9,12 @@
 import re
 import glob
 
-target_dir = '/Users/spencerwoo/AndroidProjects/CatInTheBox/app/src'
+target_dir = '/Users/spencerwoo/AndroidProjects/CatInTheBox/app'
 
 
 def count(dir):
     print('---> Opening directory', target_dir)
-    files = glob.glob('{}/**/*.*'.format(dir), recursive=True)
+    files = glob.glob('{}/**/*.java*'.format(dir), recursive=True)
     lines, comments, spaces = (0, 0, 0)
 
     for each_file in files:
